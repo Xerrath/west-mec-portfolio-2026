@@ -1,0 +1,152 @@
+/* Mobile: the line runs down the left. PC: down the middle, cards alternate sides. */
+.timeline {
+  --line-x: 1rem;
+  position: relative;
+  display: grid;
+  gap: var(--space-lg);
+  margin: 0;
+  padding: var(--space-md) 0;
+  list-style: none;
+}
+
+/* The line, and the glowing part that fills down to the active item */
+.timeline::before,
+.timeline::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--line-x);
+  width: 4px;
+  border-radius: 2px;
+  transform: translateX(-50%);
+}
+
+.timeline::before {
+  bottom: 0;
+  background: var(--color-line);
+}
+
+.timeline::after {
+  height: var(--fill);
+  background: linear-gradient(to bottom, transparent, var(--color-glow) 85%, var(--color-accent));
+  box-shadow: var(--shadow-glow);
+  transition: height var(--speed-slow) ease-out;
+}
+
+.item {
+  position: relative;
+  padding-left: calc(var(--line-x) + var(--space-lg));
+}
+
+/* Dot on the line */
+.item::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: var(--line-x);
+  z-index: 1;
+  width: 0.9rem;
+  height: 0.9rem;
+  background: var(--color-surface);
+  border: 2px solid var(--color-line);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: background var(--speed-slow), border-color var(--speed-slow), box-shadow var(--speed-slow);
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border-top: 2px solid var(--color-line);
+  border-bottom: 2px solid var(--color-line);
+  box-shadow: var(--shadow-soft);
+  opacity: 0.55;
+  transform: scale(0.97);
+  transition: opacity var(--speed-slow), transform var(--speed-slow), box-shadow var(--speed-slow), border-color var(--speed-slow);
+}
+
+.photo {
+  flex: none;
+  width: 4.5rem;
+  height: 4.5rem;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid var(--color-line);
+  background: var(--color-surface-alt);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.date {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+
+.title {
+  margin: 0.15rem 0 0.25rem;
+  font-size: 1rem;
+}
+
+.text {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+/* The one you're reading */
+.active .card {
+  opacity: 1;
+  transform: none;
+  border-bottom-color: var(--color-glow);
+  box-shadow: var(--shadow-soft), var(--shadow-glow);
+}
+
+.active::before {
+  background: var(--color-glow);
+  border-color: var(--color-glow);
+  box-shadow: var(--shadow-glow);
+}
+
+@media (min-width: 1024px) {
+  .timeline {
+    --line-x: 50%;
+  }
+
+  .item {
+    width: 50%;
+    padding-left: 0;
+    padding-right: var(--space-xl);
+  }
+
+  .item::before {
+    left: 100%;
+  }
+
+  /* Every other item on the right side */
+  .item:nth-child(even) {
+    margin-left: 50%;
+    padding-left: var(--space-xl);
+    padding-right: 0;
+  }
+
+  .item:nth-child(even)::before {
+    left: 0;
+  }
+
+  .item:nth-child(odd) .card {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+}

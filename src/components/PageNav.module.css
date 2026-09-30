@@ -1,0 +1,27 @@
+.pageNav {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-line);
+}
+
+.button {
+  padding: var(--space-sm) var(--space-lg);
+}
+
+.text {
+  display: grid;
+}
+
+.next {
+  text-align: right;
+}
+
+.hint {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+}

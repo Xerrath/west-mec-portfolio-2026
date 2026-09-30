@@ -1,0 +1,273 @@
+/* ---------- Theme colors ---------- */
+/* Light: deep purple + an analogous violet (14 degrees toward blue). */
+/* Dark: orange + an analogous red-orange (the same 14 degree step). No blue in either. */
+/* Components only use these names, so they never need to know which theme is on. */
+:root {
+  --color-bg: #f6f4fa;
+  --color-surface: #ffffff;
+  --color-surface-alt: #ece8f4;
+  --color-text: #1a1523;
+  --color-text-muted: #5a536b;
+  --color-heading: #7a00c7;
+  --color-accent: #7a00c7;
+  --color-accent-text: #7a00c7;
+  --color-on-accent: #ffffff;
+  --color-glow: #4b00c7;
+  --color-glow-soft: rgba(75, 0, 199, 0.35);
+  --color-line: #dcd6e7;
+  --color-bar-track: #e4deee;
+  --color-overlay: rgba(26, 21, 35, 0.55);
+  --color-pill: #1a1523;
+  --color-pill-text: #f6f4fa;
+
+  /* Fonts: Adobe kit first, Google fallbacks from next/font */
+  --font-display: ethnocentric, var(--font-orbitron), sans-serif;
+  --font-label: tachyon, var(--font-orbitron), sans-serif;
+  --font-body: mundial, var(--font-exo), system-ui, sans-serif;
+
+  /* Spacing, corners, depth, motion */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-pill: 999px;
+  --shadow-soft: 0 4px 14px rgba(26, 21, 35, 0.1);
+  /* Glow sits low: pushed down 6px, negative spread keeps it tight to the bottom edge */
+  --shadow-glow: 0 6px 10px -3px var(--color-glow-soft);
+  --speed-fast: 0.2s;
+  --speed-slow: 0.5s;
+
+  --topbar-height: 4rem;
+  --content-width: 72rem;
+}
+
+[data-theme="dark"] {
+  --color-bg: #0e0d12;
+  --color-surface: #18161e;
+  --color-surface-alt: #221f2a;
+  --color-text: #efedf3;
+  --color-text-muted: #b3adc0;
+  --color-heading: #f4720b;
+  --color-accent: #f4720b;
+  --color-accent-text: #f4720b;
+  --color-on-accent: #0e0d12;
+  --color-glow: #f43b0b;
+  --color-glow-soft: rgba(244, 59, 11, 0.35);
+  --color-line: #2c2835;
+  --color-bar-track: #26222e;
+  --color-overlay: rgba(6, 5, 9, 0.7);
+  --color-pill: #2b2735;
+  --color-pill-text: #efedf3;
+  --shadow-soft: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: background var(--speed-slow), color var(--speed-slow);
+}
+
+/* Faint retro grid behind everything */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.35;
+  mask-image: linear-gradient(to bottom, black, transparent 70%);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-heading);
+}
+
+h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+p {
+  margin: 0 0 var(--space-md);
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-glow);
+  outline-offset: 3px;
+}
+
+/* ---------- Layout ---------- */
+.page-main {
+  width: min(100% - 2rem, var(--content-width));
+  margin: 0 auto;
+  padding: calc(var(--topbar-height) + var(--space-lg)) 0 var(--space-lg);
+}
+
+.section {
+  margin-bottom: var(--space-xl);
+  scroll-margin-top: calc(var(--topbar-height) + var(--space-md));
+}
+
+/* Section label: small tachyon tag above the heading, with an accent stripe */
+.section-label {
+  display: inline-block;
+  margin-bottom: var(--space-sm);
+  padding-left: var(--space-sm);
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+  border-left: 3px solid var(--color-accent);
+}
+
+.lead {
+  max-width: 60ch;
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+}
+
+.card {
+  padding: var(--space-lg);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border-top: 2px solid var(--color-line);
+  border-bottom: 2px solid var(--color-line);
+  box-shadow: var(--shadow-soft);
+}
+
+/* ---------- Eclipse button ---------- */
+/* A dark pill. On hover a glow rises from BEHIND it, like an eclipse. */
+/* Layers, back to front: ::before glow, ::after pill fill, then the text. */
+.eclipse {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-pill-text);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: transform var(--speed-fast);
+}
+
+.eclipse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-pill);
+  border-radius: inherit;
+  border-bottom: 2px solid transparent;
+  transition: border-color var(--speed-fast);
+}
+
+.eclipse::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  border-radius: inherit;
+  background: var(--color-glow);
+  filter: blur(7px);
+  opacity: 0;
+  transform: scale(0.8) translateY(0);
+  transition: opacity var(--speed-slow), transform var(--speed-slow);
+}
+
+.eclipse:hover,
+.eclipse:focus-visible {
+  transform: translateY(-1px);
+}
+
+.eclipse:hover::after,
+.eclipse:focus-visible::after {
+  border-bottom-color: var(--color-glow);
+}
+
+.eclipse:hover::before,
+.eclipse:focus-visible::before {
+  opacity: 0.85;
+  transform: scale(0.96, 0.9) translateY(8px);
+}
+
+.eclipse-accent {
+  color: var(--color-on-accent);
+}
+
+.eclipse-accent::after {
+  background: var(--color-accent);
+}
+
+/* Screen-reader-only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

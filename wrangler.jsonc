@@ -1,0 +1,27 @@
+// Cloudflare Workers settings for the portfolio (built by OpenNext).
+// Secrets are NOT stored here. Set the True Blogger key once with:
+//   npx wrangler secret put TRUE_BLOGGER_API_KEY
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "west-mec-portfolio-2026",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "west-mec-portfolio-2026"
+    }
+  ],
+  // Resizes images (portrait, project screenshots, True Blogger covers). Free tier: 5,000 a month.
+  "images": {
+    "binding": "IMAGES"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
