@@ -6,7 +6,7 @@ Built with Next.js (App Router) and plain CSS with `:root` variables for the lig
 
 ## What's inside
 
-- **Home**: about, mission, skill bars, and a carousel of live projects
+- **Home**: about, mission, skill bars, degrees and certifications, and a carousel of live projects
 - **My Story**: a scroll-driven timeline
 - **Classroom**: student links, filterable by year and searchable
 - **Blog**: pulls my public posts from the [True Blogger API](https://true-blogger-api.app), with thumbnail, large, and list views
@@ -33,6 +33,8 @@ npm run dev       # http://localhost:3000
 npm run preview   # build and run it the way Cloudflare does
 npm run deploy    # build and deploy to Cloudflare
 ```
+
+Every push to `main` deploys automatically through Cloudflare Workers Builds (build: `npx opennextjs-cloudflare build`, deploy: `npx opennextjs-cloudflare deploy`, `NODE_VERSION=22`). `npm run deploy` is only needed for a manual deploy.
 
 The blog needs a True Blogger API key (read-only is enough):
 
