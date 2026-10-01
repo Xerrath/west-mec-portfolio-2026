@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import SkillBars from "@/components/SkillBars";
+import Certifications from "@/components/Certifications";
 import ProjectCarousel from "@/components/ProjectCarousel";
 import { site } from "@/data/site";
 import styles from "./page.module.css";
@@ -60,6 +61,12 @@ export default function Home() {
         <span className="section-label">Skills</span>
         <h2>What I build with</h2>
         <SkillBars />
+      </section>
+
+      <section id="certifications" className="section">
+        <span className="section-label">Degrees and Certifications</span>
+        <h2>What I have earned</h2>
+        <Certifications />
       </section>
 
       <section id="projects" className="section">

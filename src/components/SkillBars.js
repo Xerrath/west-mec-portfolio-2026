@@ -1,14 +1,25 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { skills, skillCategories } from "@/data/skills";
+import { skills, skillFrames } from "@/data/skills";
 import styles from "./SkillBars.module.css";
 
 const DURATION = 1400;
+const SETTLE_DELAY = 300;
 
-// One category of bars. The fill and the number count up every time it scrolls into view,
-// and reset to 0 once it leaves the screen.
-function SkillGroup({ category, items }) {
+// Bars already on screen at page load wait for the fonts plus a short pause,
+// so the fill plays on a settled page (big classroom monitors) instead of during loading.
+let pageSettled;
+function whenPageSettled() {
+  pageSettled ??= (document.fonts?.ready ?? Promise.resolve()).then(
+    () => new Promise((resolve) => setTimeout(resolve, SETTLE_DELAY))
+  );
+  return pageSettled;
+}
+
+// One bar. It fills and counts up on its own every time it scrolls into view,
+// and resets to 0 once it leaves the screen, so bars load one by one as you scroll.
+function SkillBar({ skill }) {
   const ref = useRef(null);
   const [progress, setProgress] = useState(0);
 
@@ -18,10 +29,12 @@ function SkillGroup({ category, items }) {
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let frame;
+    let run = 0; // bumps on every enter / leave so a stale wait never starts an old animation
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         cancelAnimationFrame(frame);
+        run += 1;
         if (!entry.isIntersecting) {
           setProgress(0);
           return;
@@ -30,52 +43,74 @@ function SkillGroup({ category, items }) {
           setProgress(1);
           return;
         }
-        const start = performance.now();
-        const tick = (now) => {
-          const t = Math.min((now - start) / DURATION, 1);
-          setProgress(1 - Math.pow(1 - t, 3)); // ease out
-          if (t < 1) frame = requestAnimationFrame(tick);
-        };
-        frame = requestAnimationFrame(tick);
+        const thisRun = run;
+        whenPageSettled().then(() => {
+          if (thisRun !== run) return;
+          const start = performance.now();
+          const tick = (now) => {
+            const t = Math.min((now - start) / DURATION, 1);
+            setProgress(1 - Math.pow(1 - t, 3)); // ease out
+            if (t < 1) frame = requestAnimationFrame(tick);
+          };
+          frame = requestAnimationFrame(tick);
+        });
       },
-      { threshold: 0.15 }
+      // Start once the whole bar is 40px above the bottom edge, so it fills where you can see it
+      { threshold: 1, rootMargin: "0px 0px -40px 0px" }
     );
 
     observer.observe(element);
     return () => {
+      run += 1;
       observer.disconnect();
       cancelAnimationFrame(frame);
     };
   }, []);
 
+  const shown = Math.round(skill.confidence * progress);
+
   return (
-    <div ref={ref} className={styles.group}>
-      <h3 className={styles.category}>{category}</h3>
-      <ul className={styles.list}>
-        {items.map((skill) => {
-          const shown = Math.round(skill.confidence * progress);
-          return (
-            <li key={skill.name}>
-              <a className={styles.skill} href={skill.link} target="_blank" rel="noreferrer">
-                <span className={styles.label}>
-                  <span className={styles.name}>{skill.name}</span>
-                  <span className={styles.percent}>{shown}%</span>
-                </span>
-                <span
-                  className={styles.track}
-                  role="meter"
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                  aria-valuenow={skill.confidence}
-                  aria-label={`${skill.name} confidence`}
-                >
-                  <span className={styles.fill} style={{ width: `${skill.confidence * progress}%` }} />
-                </span>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+    <li ref={ref}>
+      <a className={styles.skill} href={skill.link} target="_blank" rel="noreferrer">
+        <span className={styles.label}>
+          <span className={styles.name}>{skill.name}</span>
+          <span className={styles.percent}>{shown}%</span>
+        </span>
+        <span
+          className={styles.track}
+          role="meter"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={skill.confidence}
+          aria-label={`${skill.name} confidence`}
+        >
+          <span className={styles.fill} style={{ width: `${skill.confidence * progress}%` }} />
+        </span>
+      </a>
+    </li>
+  );
+}
+
+// One card. It can hold more than one category, each with its own heading.
+function SkillFrame({ categories }) {
+  return (
+    <div className={styles.group}>
+      {categories.map((category) => {
+        const items = skills
+          .filter((skill) => skill.category === category)
+          .sort((a, b) => b.confidence - a.confidence);
+        if (!items.length) return null;
+        return (
+          <section key={category} className={styles.section}>
+            <h3 className={styles.category}>{category}</h3>
+            <ul className={styles.list}>
+              {items.map((skill) => (
+                <SkillBar key={skill.name} skill={skill} />
+              ))}
+            </ul>
+          </section>
+        );
+      })}
     </div>
   );
 }
@@ -83,12 +118,9 @@ function SkillGroup({ category, items }) {
 export default function SkillBars() {
   return (
     <div className={styles.groups}>
-      {skillCategories.map((category) => {
-        const items = skills
-          .filter((skill) => skill.category === category)
-          .sort((a, b) => b.confidence - a.confidence);
-        return items.length ? <SkillGroup key={category} category={category} items={items} /> : null;
-      })}
+      {skillFrames.map((categories) => (
+        <SkillFrame key={categories.join("-")} categories={categories} />
+      ))}
     </div>
   );
 }

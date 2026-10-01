@@ -1,4 +1,4 @@
-/* Mobile: one column of groups. PC: two. */
+/* Mobile: one column of groups. PC: three. */
 .groups {
   display: grid;
   gap: var(--space-lg);
@@ -11,6 +11,11 @@
   border-top: 2px solid var(--color-line);
   border-bottom: 2px solid var(--color-line);
   box-shadow: var(--shadow-soft);
+}
+
+/* A second category inside the same card gets breathing room above it */
+.section + .section {
+  margin-top: var(--space-lg);
 }
 
 .category {
@@ -84,7 +89,6 @@
 
 @media (min-width: 1024px) {
   .groups {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
+    grid-template-columns: repeat(3, 1fr);
   }
 }

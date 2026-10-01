@@ -2,10 +2,11 @@
 /* Light: deep purple + an analogous violet (14 degrees toward blue). */
 /* Dark: orange + an analogous red-orange (the same 14 degree step). No blue in either. */
 /* Components only use these names, so they never need to know which theme is on. */
+/* Light neutrals are toned down from pure white so the page is easier on the eyes. */
 :root {
-  --color-bg: #f6f4fa;
-  --color-surface: #ffffff;
-  --color-surface-alt: #ece8f4;
+  --color-bg: #e6e3ec;
+  --color-surface: #f0eef4;
+  --color-surface-alt: #dcd8e4;
   --color-text: #1a1523;
   --color-text-muted: #5a536b;
   --color-heading: #7a00c7;
@@ -14,11 +15,11 @@
   --color-on-accent: #ffffff;
   --color-glow: #4b00c7;
   --color-glow-soft: rgba(75, 0, 199, 0.35);
-  --color-line: #dcd6e7;
-  --color-bar-track: #e4deee;
+  --color-line: #c9c3d4;
+  --color-bar-track: #d3cddd;
   --color-overlay: rgba(26, 21, 35, 0.55);
   --color-pill: #1a1523;
-  --color-pill-text: #f6f4fa;
+  --color-pill-text: #f0eef4;
 
   /* Fonts: Adobe kit first, Google fallbacks from next/font */
   --font-display: ethnocentric, var(--font-orbitron), sans-serif;

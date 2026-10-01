@@ -119,6 +119,12 @@
   box-shadow: var(--shadow-glow);
 }
 
+/* Dots already scrolled past stay filled, without the glow, so the current one still stands out */
+.passed::before {
+  background: var(--color-glow);
+  border-color: var(--color-glow);
+}
+
 @media (min-width: 1024px) {
   .timeline {
     --line-x: 50%;

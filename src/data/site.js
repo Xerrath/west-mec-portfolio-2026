@@ -20,6 +20,7 @@ export const pages = [
       { href: "/#welcome", label: "Welcome" },
       { href: "/#mission", label: "Mission" },
       { href: "/#skills", label: "Skills" },
+      { href: "/#certifications", label: "Degrees & Certs" },
       { href: "/#projects", label: "Projects" },
     ],
   },

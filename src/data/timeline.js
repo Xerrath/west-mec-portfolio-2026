@@ -14,11 +14,12 @@ export const timeline = [
   { date: "April 2019", title: "Adopted Loki", text: "Our Belgian Malinois and Greyhound mix.", image: "/images/timeline/loki.jpg", alt: "My dog Loki" },
   { date: "August 2019", title: "Graduated from PVCC", text: "Exercise Science, plus certifications in personal training, EMT, business entrepreneurship, web development, and Adobe products.", image: "/images/timeline/pvcc.jpg", alt: "Paradise Valley Community College logo" },
   { date: "August 2020", title: "Married my wife", text: "", image: "/images/timeline/wife-and-i.jpg", alt: "My wife and me" },
-  { date: "March 2022", title: "Full stack development certification", text: "Bottega University.", image: "/images/timeline/bottega.png", alt: "Bottega University logo" },
   { date: "June 2022", title: "Adopted Lunaris", text: "Our brindle Pembroke Welsh Corgi.", image: "/images/timeline/lunaris.jpg", alt: "My dog Lunaris" },
+  { date: "March 2023", title: "Full stack development certification", text: "Bottega University.", image: "/images/timeline/bottega.png", alt: "Bottega University logo" },
   { date: "March 2024", title: "Teaching certification", text: "" },
   { date: "July 2024", title: "Thunderbird High School", text: "Started teaching computer science at Thunderbird.", image: "/images/timeline/thunderbird.png", alt: "Thunderbird High School logo" },
   { date: "May 2025", title: "Adopted Midas", text: "Our newest dog.", image: "/images/timeline/midas.jpg", alt: "My dog Midas" },
   { date: "May 2026", title: "Started at West-MEC", text: "Began working with West-MEC's coding program on contract." },
   { date: "July 2026", title: "Full-time Coding Instructor at West-MEC", text: "Teaching the two-year Software & Web Application Development program at Central Campus." },
+  { date: "November 2026", title: "Bachelor of Science in Information Technology", text: "University of Phoenix. President's List in 2025 and Dean's List in 2026." },
 ];

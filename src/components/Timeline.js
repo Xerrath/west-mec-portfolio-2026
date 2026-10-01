@@ -6,6 +6,7 @@ import { timeline } from "@/data/timeline";
 import styles from "./Timeline.module.css";
 
 // The item closest to the middle of the screen lights up, and the line fills down to it.
+// Dots you have already scrolled past stay filled; scrolling back up empties them again.
 export default function Timeline() {
   const listRef = useRef(null);
   const [active, setActive] = useState(0);
@@ -18,11 +19,12 @@ export default function Timeline() {
     let frame;
 
     function update() {
-      // The reading line sits mid-screen, then slides to the bottom as the page runs out of scroll,
-      // so the last events can still light up.
+      // The reading line sits mid-screen. Near the top of the page it slides up toward the top edge,
+      // so the first event lights up on any screen height (tall phones included). Near the bottom it
+      // slides down, so the last events can still light up.
       const half = window.innerHeight / 2;
       const scrollLeft = document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
-      const middle = half + Math.max(0, half - scrollLeft);
+      const middle = half + Math.max(0, half - scrollLeft) - Math.max(0, half - window.scrollY);
       let closest = 0;
       let closestDistance = Infinity;
       items.forEach((item, index) => {
@@ -57,7 +59,7 @@ export default function Timeline() {
   return (
     <ol ref={listRef} className={styles.timeline} style={{ "--fill": `${fill}px` }}>
       {timeline.map((entry, index) => (
-        <li key={entry.date + entry.title} data-item className={`${styles.item} ${index === active ? styles.active : ""}`}>
+        <li key={entry.date + entry.title} data-item className={`${styles.item} ${index === active ? styles.active : ""} ${index < active ? styles.passed : ""}`}>
           <div className={styles.card}>
             {entry.image && (
               <div className={styles.photo}>
