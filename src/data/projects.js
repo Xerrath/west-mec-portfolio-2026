@@ -41,6 +41,14 @@ export const projects = [
     repoUrl: "https://github.com/Xerrath/binary-educator-app",
     tags: ["JavaScript"],
   },
+  {
+    name: "DevCamp's Fries",
+    description: "My Bottega DevCamp class project: a four-page site for a coding-themed fry shop, with a skewed hero header, a square grid menu, a contact form, and media queries for phones.",
+    image: "/images/projects/devcamp-frys.png",
+    liveUrl: "https://xerrath.github.io/DevCamp-Frys-Class-Project/",
+    repoUrl: "https://github.com/Xerrath/DevCamp-Frys-Class-Project",
+    tags: ["HTML", "CSS", "Responsive"],
+  },
 ];
 
 export const liveProjects = projects.filter((project) => project.liveUrl);
