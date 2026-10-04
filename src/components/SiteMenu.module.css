@@ -203,7 +203,42 @@
   gap: var(--space-sm);
 }
 
+/* QR code card (phones only; PC has it pinned on the home page) */
+.qr {
+  justify-self: center;
+  align-self: center;
+  width: 11rem;
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border-top: 2px solid var(--color-line);
+  border-bottom: 2px solid var(--color-line);
+  box-shadow: var(--shadow-black);
+}
+
+/* The code keeps its white background in dark mode so phones can always read it */
+.qr img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+}
+
+.qrLabel {
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+
 @media (min-width: 1024px) {
+  .qr {
+    display: none;
+  }
+
   .panel {
     width: 22rem;
   }

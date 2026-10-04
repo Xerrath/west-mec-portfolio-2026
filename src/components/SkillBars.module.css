@@ -37,9 +37,11 @@
   text-decoration: none;
 }
 
+/* Bottom-aligned: when a long name wraps, the percent stays on its last line, right above the bar */
 .label {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   gap: var(--space-md);
 }
 
@@ -50,10 +52,23 @@
 }
 
 .percent {
+  flex: none;
+  display: grid;
+  justify-items: end;
   font-family: var(--font-label);
   font-size: 0.85rem;
   font-variant-numeric: tabular-nums;
   color: var(--color-text-muted);
+}
+
+/* Both numbers sit in the same spot; the invisible final one sets the width */
+.percentSizer,
+.percentValue {
+  grid-area: 1 / 1;
+}
+
+.percentSizer {
+  visibility: hidden;
 }
 
 /* The pill: a dark inset track with a crosshatched glowing fill */

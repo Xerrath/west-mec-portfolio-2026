@@ -19,7 +19,7 @@ export const timeline = [
   { date: "March 2024", title: "Teaching certification", text: "" },
   { date: "July 2024", title: "Thunderbird High School", text: "Started teaching computer science at Thunderbird.", image: "/images/timeline/thunderbird.png", alt: "Thunderbird High School logo" },
   { date: "May 2025", title: "Adopted Midas", text: "Our newest dog.", image: "/images/timeline/midas.jpg", alt: "My dog Midas" },
-  { date: "May 2026", title: "Started at West-MEC", text: "Began working with West-MEC's coding program on contract." },
-  { date: "July 2026", title: "Full-time Coding Instructor at West-MEC", text: "Teaching the two-year Software & Web Application Development program at Central Campus." },
-  { date: "November 2026", title: "Bachelor of Science in Information Technology", text: "University of Phoenix. President's List in 2025 and Dean's List in 2026." },
+  { date: "May 2026", title: "Started at West-MEC", text: "Began working with West-MEC's coding program on contract.", image: "/images/timeline/west-mec-central.png", alt: "West-MEC Central Campus logo" },
+  { date: "July 2026", title: "Full-time Coding Instructor at West-MEC", text: "Teaching the two-year Software & Web Application Development program at Central Campus.", image: "/images/timeline/west-mec-central.png", alt: "West-MEC Central Campus logo" },
+  { date: "November 2026", title: "Bachelor of Science in Information Technology", text: "University of Phoenix. President's List in 2025 and Dean's List in 2026.", image: "/images/timeline/university-of-phoenix.png", alt: "University of Phoenix phoenix logo" },
 ];

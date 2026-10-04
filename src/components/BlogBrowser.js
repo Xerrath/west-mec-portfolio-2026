@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { BlogThumbCard, BlogLargeCard, BlogListRow } from "./BlogViews";
 import styles from "./Blog.module.css";
 
@@ -23,6 +23,10 @@ const VIEWS = [
   },
 ];
 
+// Posts drawn at first, and how many more load each time you scroll near the end.
+// 12 splits evenly into the 3-column thumbnail grid.
+const PAGE_SIZE = 12;
+
 // Is the screen PC width? Large view falls back to thumbnail below 1024px.
 function subscribeWide(callback) {
   const query = window.matchMedia("(min-width: 1024px)");
@@ -36,6 +40,8 @@ export default function BlogBrowser({ posts: allPosts, tags: blogTags, initialVi
   const [tag, setTag] = useState(blogTags.includes(initialTag) ? initialTag : "");
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("newest");
+  const [limit, setLimit] = useState(PAGE_SIZE);
+  const moreRef = useRef(null);
   const wide = useSyncExternalStore(subscribeWide, getWide, () => true);
   const shownView = view === "large" && !wide ? "thumbnail" : view;
 
@@ -55,6 +61,7 @@ export default function BlogBrowser({ posts: allPosts, tags: blogTags, initialVi
 
   function changeTag(value) {
     setTag(value);
+    setLimit(PAGE_SIZE);
     updateUrl(view, value);
   }
 
@@ -66,6 +73,24 @@ export default function BlogBrowser({ posts: allPosts, tags: blogTags, initialVi
   });
   if (sort === "oldest") posts = [...posts].reverse();
 
+  const shown = posts.slice(0, limit);
+  const hasMore = posts.length > limit;
+
+  // Lazy loading: when the "Show more" spot gets within 400px of the screen, draw the next batch.
+  // Rebuilt after every batch, so if the spot is still on screen it loads again right away.
+  useEffect(() => {
+    const spot = moreRef.current;
+    if (!spot || !hasMore) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setLimit((current) => current + PAGE_SIZE);
+      },
+      { rootMargin: "0px 0px 400px 0px" }
+    );
+    observer.observe(spot);
+    return () => observer.disconnect();
+  }, [hasMore, limit]);
+
   const Card = shownView === "large" ? BlogLargeCard : shownView === "list" ? BlogListRow : BlogThumbCard;
 
   return (
@@ -73,13 +98,19 @@ export default function BlogBrowser({ posts: allPosts, tags: blogTags, initialVi
       <div className={styles.toolbar}>
         <label className={styles.search}>
           <span className="sr-only">Search posts</span>
-          <input type="search" placeholder="Search posts..." value={search} onChange={(event) => setSearch(event.target.value)} />
+          <input type="search" placeholder="Search posts..." value={search} onChange={(event) => {
+              setSearch(event.target.value);
+              setLimit(PAGE_SIZE);
+            }} />
         </label>
 
         <div className={styles.toolbarRight}>
           <label className={styles.sort}>
             <span className={styles.sortLabel}>Sort</span>
-            <select value={sort} onChange={(event) => setSort(event.target.value)}>
+            <select value={sort} onChange={(event) => {
+                setSort(event.target.value);
+                setLimit(PAGE_SIZE);
+              }}>
               <option value="newest">Newest</option>
               <option value="oldest">Oldest</option>
             </select>
@@ -108,6 +139,7 @@ export default function BlogBrowser({ posts: allPosts, tags: blogTags, initialVi
       {/* No tag list here (it got cluttered). Tags on a post link back with ?tag=, and this pill clears it. */}
       <div className={styles.countRow}>
         <p className={styles.count} aria-live="polite">
+          {hasMore && `Showing ${shown.length} of `}
           {posts.length} {posts.length === 1 ? "post" : "posts"}
         </p>
         {tag && (
@@ -120,11 +152,21 @@ export default function BlogBrowser({ posts: allPosts, tags: blogTags, initialVi
       {posts.length === 0 ? (
         <p className={styles.empty}>{allPosts.length ? "No posts match that search." : "No posts yet. Check back soon."}</p>
       ) : (
-        <div className={styles[shownView]}>
-          {posts.map((post) => (
-            <Card key={post.slug} post={post} />
-          ))}
-        </div>
+        <>
+          <div className={styles[shownView]}>
+            {shown.map((post) => (
+              <Card key={post.slug} post={post} />
+            ))}
+          </div>
+          {/* Scrolling near this loads more on its own; the button is there for keyboards */}
+          {hasMore && (
+            <div ref={moreRef} className={styles.more}>
+              <button type="button" className="eclipse" onClick={() => setLimit((current) => current + PAGE_SIZE)}>
+                Show more posts
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

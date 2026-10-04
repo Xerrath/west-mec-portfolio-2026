@@ -381,3 +381,10 @@
     justify-content: flex-end;
   }
 }
+
+/* ---------- Lazy loading: "Show more" spot under the posts ---------- */
+.more {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-lg);
+}

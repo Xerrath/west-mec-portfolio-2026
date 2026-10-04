@@ -1,4 +1,5 @@
 import { certifications, certFrames, degrees } from "@/data/certifications";
+import Reveal from "./Reveal";
 import styles from "./Certifications.module.css";
 
 // "2026-02" -> "Feb 2026"
@@ -10,7 +11,7 @@ function monthYear(date) {
 export default function Certifications() {
   return (
     <div className={styles.groups}>
-      <div className={`${styles.group} ${styles.degrees}`}>
+      <Reveal from="top" className={`${styles.group} ${styles.degrees}`}>
         <h3 className={styles.title}>Degrees</h3>
         <ul className={styles.degreeList}>
           {[...degrees]
@@ -25,9 +26,10 @@ export default function Certifications() {
               </li>
             ))}
         </ul>
-      </div>
-      {certFrames.map((groups) => (
-        <div key={groups.join("-")} className={styles.group}>
+      </Reveal>
+      {/* Left card slides in from the left, right card from the right */}
+      {certFrames.map((groups, index) => (
+        <Reveal key={groups.join("-")} from={index % 2 === 0 ? "left" : "right"} delay={index * 150} className={styles.group}>
           {groups.map((group) => {
             const items = certifications.filter((cert) => cert.group === group).sort((a, b) => b.date.localeCompare(a.date));
             if (!items.length) return null;
@@ -62,7 +64,7 @@ export default function Certifications() {
               </section>
             );
           })}
-        </div>
+        </Reveal>
       ))}
     </div>
   );

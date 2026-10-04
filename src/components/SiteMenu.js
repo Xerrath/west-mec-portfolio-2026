@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
+import PageNav from "./PageNav";
 import { site, pages } from "@/data/site";
 import styles from "./SiteMenu.module.css";
 
@@ -61,6 +62,7 @@ export default function SiteMenu() {
         <Link href="/" className={styles.brand}>
           {site.name}
         </Link>
+        <PageNav />
       </header>
 
       <div
@@ -111,6 +113,12 @@ export default function SiteMenu() {
           <a className="eclipse" href={site.github} target="_blank" rel="noreferrer">
             GitHub
           </a>
+        </div>
+
+        {/* Phones only: a parent can open the menu and let another parent scan the site */}
+        <div className={styles.qr}>
+          <Image src="/images/misc-pics/portfolio-qr-code.png" alt="QR code that opens this portfolio's live site" width={450} height={450} />
+          <span className={styles.qrLabel}>Scan to visit</span>
         </div>
 
         <ThemeToggle />

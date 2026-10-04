@@ -1,6 +1,5 @@
 import { Orbitron, Exo_2 } from "next/font/google";
 import SiteMenu from "@/components/SiteMenu";
-import PageNav from "@/components/PageNav";
 import SiteFooter from "@/components/SiteFooter";
 import { site } from "@/data/site";
 import "./global.css";
@@ -41,7 +40,6 @@ export default function RootLayout({ children }) {
         <div id="site-content">
           <main className="page-main">
             {children}
-            <PageNav />
           </main>
           <SiteFooter />
         </div>

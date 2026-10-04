@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { pages } from "@/data/site";
 import styles from "./PageNav.module.css";
 
-// Back / Next buttons at the bottom of every page. They follow the order in data/site.js.
+// Back / Next buttons in the top bar (PC only). They follow the order in data/site.js.
 export default function PageNav() {
   const pathname = usePathname();
   const index = pages.findIndex((page) => page.href === pathname);
@@ -16,7 +16,7 @@ export default function PageNav() {
 
   return (
     <nav className={styles.pageNav} aria-label="Page navigation">
-      {previous ? (
+      {previous && (
         <Link href={previous.href} className={`eclipse ${styles.button}`}>
           <span aria-hidden="true">&larr;</span>
           <span className={styles.text}>
@@ -24,8 +24,6 @@ export default function PageNav() {
             {previous.label}
           </span>
         </Link>
-      ) : (
-        <span />
       )}
       {next && (
         <Link href={next.href} className={`eclipse eclipse-accent ${styles.button} ${styles.next}`}>

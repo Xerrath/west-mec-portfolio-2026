@@ -74,7 +74,14 @@ function SkillBar({ skill }) {
       <a className={styles.skill} href={skill.link} target="_blank" rel="noreferrer">
         <span className={styles.label}>
           <span className={styles.name}>{skill.name}</span>
-          <span className={styles.percent}>{shown}%</span>
+          {/* The hidden final number holds the width from the start, so the count going 0% -> 78%
+              never squeezes a long name onto a second line mid-animation (that made the page jump) */}
+          <span className={styles.percent}>
+            <span className={styles.percentSizer} aria-hidden="true">
+              {skill.confidence}%
+            </span>
+            <span className={styles.percentValue}>{shown}%</span>
+          </span>
         </span>
         <span
           className={styles.track}

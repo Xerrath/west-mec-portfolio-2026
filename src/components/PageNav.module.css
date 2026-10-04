@@ -1,14 +1,11 @@
+/* Phones: hidden (the menu is the way around). PC: pinned to the right of the top bar. */
 .pageNav {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-md);
-  margin-top: var(--space-xl);
-  padding-top: var(--space-lg);
-  border-top: 1px solid var(--color-line);
+  display: none;
 }
 
 .button {
-  padding: var(--space-sm) var(--space-lg);
+  padding: var(--space-xs) var(--space-md);
+  line-height: 1.2;
 }
 
 .text {
@@ -21,7 +18,15 @@
 
 .hint {
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   letter-spacing: 0.1em;
   opacity: 0.8;
+}
+
+@media (min-width: 1024px) {
+  .pageNav {
+    display: flex;
+    gap: var(--space-md);
+    margin-left: auto;
+  }
 }

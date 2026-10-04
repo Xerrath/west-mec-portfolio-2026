@@ -38,7 +38,11 @@
   --radius-sm: 6px;
   --radius-md: 14px;
   --radius-pill: 999px;
-  --shadow-soft: 0 4px 14px rgba(26, 21, 35, 0.1);
+  --shadow-soft: 0 6px 18px rgba(26, 21, 35, 0.2);
+  /* Shadow color alone, for shadows that need their own offsets (carousel cards and tabs) */
+  --shadow-color: rgba(26, 21, 35, 0.22);
+  /* Plain black shadow, the same in both themes (QR code card) */
+  --shadow-black: 0 4px 12px rgba(0, 0, 0, 0.25);
   /* Glow sits low: pushed down 6px, negative spread keeps it tight to the bottom edge */
   --shadow-glow: 0 6px 10px -3px var(--color-glow-soft);
   --speed-fast: 0.2s;
@@ -67,7 +71,8 @@
   --color-overlay: rgba(6, 5, 9, 0.7);
   --color-pill: #2b2735;
   --color-pill-text: #efedf3;
-  --shadow-soft: 0 4px 14px rgba(0, 0, 0, 0.4);
+  --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.6);
+  --shadow-color: rgba(0, 0, 0, 0.6);
 }
 
 /* ---------- Base ---------- */
@@ -148,10 +153,23 @@ img {
 }
 
 /* ---------- Layout ---------- */
+/* Cards that slide in from the side start past the edge; clip them so the page never scrolls sideways */
+#site-content {
+  overflow-x: clip;
+}
+
 .page-main {
   width: min(100% - 2rem, var(--content-width));
   margin: 0 auto;
   padding: calc(var(--topbar-height) + var(--space-lg)) 0 var(--space-lg);
+}
+
+/* A page with the pinned QR card (Home) keeps clear of it on PC: 8rem card + 1rem edge + 2rem air, both sides
+   so the content stays centered. Wide screens already have the room, so nothing changes there. */
+@media (min-width: 1024px) {
+  .page-main:has(.qr-pinned) {
+    width: min(100% - 22rem, var(--content-width));
+  }
 }
 
 .section {

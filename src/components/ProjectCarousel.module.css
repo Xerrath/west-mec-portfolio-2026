@@ -29,13 +29,16 @@
   border-radius: var(--radius-md);
   border-top: 2px solid var(--color-line);
   border-bottom: 3px solid var(--color-accent);
-  box-shadow: var(--shadow-soft);
+  /* Tight and pushed down, so the track's overflow edge doesn't slice it off at the sides */
+  box-shadow: 0 6px 8px -4px var(--shadow-color);
   transition: transform var(--speed-slow), box-shadow var(--speed-slow);
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-soft), var(--shadow-glow);
+  box-shadow:
+    0 6px 8px -4px var(--shadow-color),
+    0 10px 12px -6px var(--color-glow-soft);
 }
 
 /* Shorter screenshot on phones so the whole card fits on screen */
@@ -99,29 +102,53 @@
   gap: var(--space-md);
 }
 
+/* Tab buttons: narrow, square-ish, with the outer corners rounded more than the inner ones */
 .arrow {
-  width: 2.75rem;
+  width: 2.25rem;
   height: 2.75rem;
   flex: none;
-  font-size: 1.2rem;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-family: var(--font-label);
+  font-size: 1.3rem;
   color: var(--color-text);
   background: var(--color-surface);
-  border: 0;
-  border-top: 2px solid var(--color-line);
-  border-bottom: 2px solid var(--color-glow);
-  border-radius: 50%;
-  box-shadow: var(--shadow-soft);
+  border: 2px solid var(--color-line);
   cursor: pointer;
-  transition: box-shadow var(--speed-fast), opacity var(--speed-fast);
+  user-select: none;
+  transition:
+    color var(--speed-fast),
+    border-color var(--speed-fast),
+    box-shadow var(--speed-fast);
 }
 
-.arrow:hover:not(:disabled) {
-  box-shadow: var(--shadow-soft), var(--shadow-glow);
+/* Each tab's shadow leans outward, away from the cards; on hover a soft theme-color glow joins it */
+.left {
+  border-radius: 14px 6px 6px 14px;
+  box-shadow: -5px 5px 12px -3px var(--shadow-color);
 }
 
-.arrow:disabled {
-  opacity: 0.3;
-  cursor: default;
+.right {
+  border-radius: 6px 14px 14px 6px;
+  box-shadow: 5px 5px 12px -3px var(--shadow-color);
+}
+
+.arrow:hover {
+  color: var(--color-accent-text);
+  border-color: var(--color-glow);
+}
+
+.left:hover {
+  box-shadow:
+    -5px 5px 12px -3px var(--shadow-color),
+    -7px 7px 14px -4px var(--color-glow-soft);
+}
+
+.right:hover {
+  box-shadow:
+    5px 5px 12px -3px var(--shadow-color),
+    7px 7px 14px -4px var(--color-glow-soft);
 }
 
 .dots {
@@ -169,22 +196,44 @@
     padding: var(--space-md) var(--space-lg) var(--space-lg);
   }
 
-  /* PC: arrows move out to the sides, dots stay centered underneath */
-  .arrow {
-    position: absolute;
-    top: 6rem;
+  /* PC: the cards sit between two tall tabs (almost card height), dots centered underneath.
+     .controls steps out of the way (display: contents) so its buttons join this grid. */
+  .carousel {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: var(--space-sm);
   }
 
-  .arrow:disabled {
-    opacity: 0;
-    pointer-events: none;
+  .track {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .controls {
+    display: contents;
+  }
+
+  .arrow {
+    grid-row: 1;
+    align-self: stretch;
+    height: auto;
+    margin: var(--space-lg) 0 calc(var(--space-lg) + var(--space-md));
+    font-size: 2rem;
   }
 
   .left {
-    left: -1.4rem;
+    grid-column: 1;
+    border-radius: 20px 8px 8px 20px;
   }
 
   .right {
-    right: -1.4rem;
+    grid-column: 3;
+    border-radius: 8px 20px 20px 8px;
+  }
+
+  .dots {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: center;
   }
 }
