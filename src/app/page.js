@@ -3,6 +3,7 @@ import Link from "next/link";
 import SkillBars from "@/components/SkillBars";
 import Certifications from "@/components/Certifications";
 import ProjectCarousel from "@/components/ProjectCarousel";
+import QrCard from "@/components/QrCard";
 import { site } from "@/data/site";
 import styles from "./page.module.css";
 
@@ -29,12 +30,7 @@ export default function Home() {
         <div className={styles.portrait}>
           <Image src="/images/portrait.jpg" alt={`Portrait of ${site.name}`} width={359} height={480} priority />
         </div>
-        {/* QR code to the live site, PC only: pinned top right under the top bar while you scroll.
-            On phones it lives in the hamburger menu instead (SiteMenu). */}
-        <aside className={`qr-pinned ${styles.qr}`} aria-label="QR code">
-          <Image src="/images/misc-pics/portfolio-qr-code.png" alt="QR code that opens this portfolio's live site" width={450} height={450} />
-          <span className={styles.qrLabel}>Scan to visit</span>
-        </aside>
+        <QrCard />
       </section>
 
       <section className={`section ${styles.split}`}>

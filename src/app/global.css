@@ -164,14 +164,6 @@ img {
   padding: calc(var(--topbar-height) + var(--space-lg)) 0 var(--space-lg);
 }
 
-/* A page with the pinned QR card (Home) keeps clear of it on PC: 8rem card + 1rem edge + 2rem air, both sides
-   so the content stays centered. Wide screens already have the room, so nothing changes there. */
-@media (min-width: 1024px) {
-  .page-main:has(.qr-pinned) {
-    width: min(100% - 22rem, var(--content-width));
-  }
-}
-
 .section {
   margin-bottom: var(--space-xl);
   scroll-margin-top: calc(var(--topbar-height) + var(--space-md));

@@ -55,49 +55,7 @@
   scroll-margin-top: calc(var(--topbar-height) + var(--space-md));
 }
 
-/* ---------- QR code card ---------- */
-/* PC only: fixed top right, under the top bar. Phones get it in the hamburger menu instead. */
-.qr {
-  display: none;
-  gap: var(--space-xs);
-  padding: var(--space-sm);
-  background: var(--color-surface);
-  border-radius: var(--radius-md);
-  border-top: 2px solid var(--color-line);
-  border-bottom: 2px solid var(--color-line);
-  box-shadow: var(--shadow-black);
-}
-
-/* The code keeps its white background in dark mode so phones can always read it */
-.qr img {
-  width: 100%;
-  height: auto;
-  border-radius: var(--radius-sm);
-}
-
-.qrLabel {
-  font-family: var(--font-label);
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-align: center;
-  text-transform: uppercase;
-  color: var(--color-accent-text);
-}
-
 @media (min-width: 1024px) {
-  .qr {
-    display: grid;
-    position: fixed;
-    top: calc(var(--topbar-height) + var(--space-md));
-    right: var(--space-md);
-    z-index: 30;
-    width: 8rem;
-  }
-
-  .qrLabel {
-    font-size: 0.65rem;
-  }
-
   .hero {
     grid-template-columns: 1.4fr 1fr;
   }
