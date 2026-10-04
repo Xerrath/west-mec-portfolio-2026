@@ -73,7 +73,7 @@
   background:
     repeating-linear-gradient(45deg, transparent 0 3px, rgba(255, 255, 255, 0.28) 3px 5px),
     repeating-linear-gradient(-45deg, transparent 0 3px, rgba(255, 255, 255, 0.28) 3px 5px),
-    linear-gradient(90deg, var(--color-glow), var(--color-heading));
+    linear-gradient(90deg, var(--color-bar-start), var(--color-bar-end));
   transition: filter var(--speed-slow), box-shadow var(--speed-slow);
 }
 

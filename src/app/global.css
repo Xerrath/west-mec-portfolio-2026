@@ -1,6 +1,6 @@
 /* ---------- Theme colors ---------- */
-/* Light: deep purple + an analogous violet (14 degrees toward blue). */
-/* Dark: orange + an analogous red-orange (the same 14 degree step). No blue in either. */
+/* Light: deep purple + an analogous magenta (29 degrees toward red) for a two-tone look. */
+/* Dark: orange + an analogous red-orange (14 degrees toward red). No blue in either. */
 /* Components only use these names, so they never need to know which theme is on. */
 /* Light neutrals are toned down from pure white so the page is easier on the eyes. */
 :root {
@@ -13,8 +13,11 @@
   --color-accent: #7a00c7;
   --color-accent-text: #7a00c7;
   --color-on-accent: #ffffff;
-  --color-glow: #4b00c7;
-  --color-glow-soft: rgba(75, 0, 199, 0.35);
+  --color-glow: #c700b0;
+  --color-glow-soft: rgba(199, 0, 176, 0.35);
+  /* Skill bars: start on the deep purple and glow into the magenta */
+  --color-bar-start: #7a00c7;
+  --color-bar-end: #c700b0;
   --color-line: #c9c3d4;
   --color-bar-track: #d3cddd;
   --color-overlay: rgba(26, 21, 35, 0.55);
@@ -57,6 +60,8 @@
   --color-on-accent: #0e0d12;
   --color-glow: #f43b0b;
   --color-glow-soft: rgba(244, 59, 11, 0.35);
+  --color-bar-start: #f43b0b;
+  --color-bar-end: #f4720b;
   --color-line: #2c2835;
   --color-bar-track: #26222e;
   --color-overlay: rgba(6, 5, 9, 0.7);
