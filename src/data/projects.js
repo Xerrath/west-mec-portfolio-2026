@@ -11,6 +11,14 @@ export const projects = [
     tags: ["Next.js", "MongoDB", "REST API"],
   },
   {
+    name: "Wizard Invaders",
+    description: "A Halloween Space Invaders game on a collaborator's starter. I wrote the game logic: levels, bosses, the timer, sprites, and 2 player co-op. Top 10 high scores save in localStorage, so no database is needed.",
+    image: "/images/projects/wizard-invaders.png",
+    liveUrl: "https://xerrath.github.io/shellGame-Holloween-Starter/",
+    repoUrl: "https://github.com/Xerrath/shellGame-Holloween-Starter",
+    tags: ["JavaScript", "localStorage", "Gamepad API"],
+  },
+  {
     name: "Color Lab",
     description: "A color theory lab for my Year 1 students: color wheel harmonies, a palette generator, a contrast checker, and a :root builder.",
     image: "/images/projects/color-lab.png",
