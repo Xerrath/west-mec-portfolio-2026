@@ -19,6 +19,14 @@ export const projects = [
     tags: ["JavaScript", "localStorage", "Gamepad API"],
   },
   {
+    name: "Spider-Man Tribute",
+    description: "A Spider-Man fan site: his story told in chapters, a rogues gallery of 17 villains, his biggest fans, and a library of 501 comic series, 19 movies, and 15 TV shows, each with its own page.",
+    image: "/images/projects/spider-man-tribute.png",
+    liveUrl: "https://xerrath.github.io/tributeWebsite/",
+    repoUrl: "https://github.com/Xerrath/tributeWebsite",
+    tags: ["HTML", "CSS", "CSS Animations"],
+  },
+  {
     name: "Color Lab",
     description: "A color theory lab for my Year 1 students: color wheel harmonies, a palette generator, a contrast checker, and a :root builder.",
     image: "/images/projects/color-lab.png",

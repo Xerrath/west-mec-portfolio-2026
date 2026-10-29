@@ -11,7 +11,7 @@ export const degrees = [
     name: "Bachelor of Science in Information Technology",
     school: "University of Phoenix",
     date: "2026-11",
-    text: "Cybersecurity, cloud, networking, data, and software engineering coursework. President's List in 2025 and Dean's List in 2026.",
+    text: "Cybersecurity, cloud, networking, data, and software engineering coursework. Summa Cum Laude, President's List in 2025, and Dean's List in 2026. Honor societies: Order of the Sword & Shield, National Society of Collegiate Scholars.",
   },
   {
     name: "Associate in Applied Science, Exercise Science",

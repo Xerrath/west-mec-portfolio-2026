@@ -21,5 +21,5 @@ export const timeline = [
   { date: "May 2025", title: "Adopted Midas", text: "Our newest dog.", image: "/images/timeline/midas.jpg", alt: "My dog Midas" },
   { date: "May 2026", title: "Started at West-MEC", text: "Began working with West-MEC's coding program on contract.", image: "/images/timeline/west-mec-central.png", alt: "West-MEC Central Campus logo" },
   { date: "July 2026", title: "Full-time Coding Instructor at West-MEC", text: "Teaching the two-year Software & Web Application Development program at Central Campus.", image: "/images/timeline/west-mec-central.png", alt: "West-MEC Central Campus logo" },
-  { date: "November 2026", title: "Bachelor of Science in Information Technology", text: "University of Phoenix. President's List in 2025 and Dean's List in 2026.", image: "/images/timeline/university-of-phoenix.png", alt: "University of Phoenix phoenix logo" },
+  { date: "November 2026", title: "Bachelor of Science in Information Technology", text: "University of Phoenix. Summa Cum Laude, President's List in 2025, and Dean's List in 2026. Honor societies: Order of the Sword & Shield, National Society of Collegiate Scholars.", image: "/images/timeline/university-of-phoenix.png", alt: "University of Phoenix phoenix logo" },
 ];
